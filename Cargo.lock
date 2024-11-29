@@ -44,26 +44,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-wasi"
-version = "0.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9abe3a40b90f239a8a9141aff1a1b98befb36d5aa23a89ed33e030e520bfd20"
-dependencies = [
- "bitflags 2.6.0",
- "cfg-if",
- "futures",
- "getrandom",
- "libc",
- "log",
- "parking_lot",
- "path-absolutize",
- "serde",
- "slab",
- "socket2 0.4.10",
- "tokio",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -290,20 +270,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "fiber-for-wasmedge"
-version = "14.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03d7057d9db6e5266b609656724393781a1d75beb1159134420e0a47a7d1fae6"
-dependencies = [
- "cc",
- "cfg-if",
- "rustix",
- "wasmtime-asm-macros",
- "wasmtime-versioned-export-macros",
- "windows-sys 0.48.0",
-]
-
-[[package]]
 name = "filetime"
 version = "0.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -341,28 +307,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "futures"
-version = "0.3.31"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "65bc07b1a8bc7c85c5f2e110c476c7389b4554ba72af57d8445ea63a576b0876"
-dependencies = [
- "futures-channel",
- "futures-core",
- "futures-executor",
- "futures-io",
- "futures-sink",
- "futures-task",
- "futures-util",
-]
-
-[[package]]
 name = "futures-channel"
 version = "0.3.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dff15bf788c671c1934e366d07e30c1814a8ef514e1af724a602e8a2fbe1b10"
 dependencies = [
  "futures-core",
- "futures-sink",
 ]
 
 [[package]]
@@ -372,32 +322,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05f29059c0c2090612e8d742178b0580d2dc940c837851ad723096f87af6663e"
 
 [[package]]
-name = "futures-executor"
-version = "0.3.31"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e28d1d997f585e54aebc3f97d39e72338912123a67330d723fdbb564d646c9f"
-dependencies = [
- "futures-core",
- "futures-task",
- "futures-util",
-]
-
-[[package]]
 name = "futures-io"
 version = "0.3.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e5c1b78ca4aae1ac06c48a526a655760685149f0d465d21f37abfe57ce075c6"
-
-[[package]]
-name = "futures-macro"
-version = "0.3.31"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "162ee34ebcb7c64a8abebc059ce0fee27c2262618d7b60ed8faf72fef13c3650"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.89",
-]
 
 [[package]]
 name = "futures-sink"
@@ -417,11 +345,8 @@ version = "0.3.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9fa08315bb612088cc391249efdc3bc77536f16c91f6cf495e6fbe85b20a4a81"
 dependencies = [
- "futures-channel",
  "futures-core",
  "futures-io",
- "futures-macro",
- "futures-sink",
  "futures-task",
  "memchr",
  "pin-project-lite",
@@ -550,7 +475,7 @@ dependencies = [
  "httpdate",
  "itoa",
  "pin-project-lite",
- "socket2 0.5.8",
+ "socket2",
  "tokio",
  "tower-service",
  "tracing",
@@ -935,24 +860,6 @@ name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
-
-[[package]]
-name = "path-absolutize"
-version = "3.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4af381fe79fa195b4909485d99f73a80792331df0625188e707854f0b3383f5"
-dependencies = [
- "path-dedot",
-]
-
-[[package]]
-name = "path-dedot"
-version = "3.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "07ba0ad7e047712414213ff67533e6dd477af0a4e1d14fb52343e53d30ea9397"
-dependencies = [
- "once_cell",
-]
 
 [[package]]
 name = "percent-encoding"
@@ -1346,15 +1253,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
 
 [[package]]
-name = "signal-hook-registry"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a9e9e0b4211b72e7b8b6e85c807d36c212bdb33ea8587f7569562a84df5465b1"
-dependencies = [
- "libc",
-]
-
-[[package]]
 name = "siphasher"
 version = "0.3.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1374,16 +1272,6 @@ name = "smallvec"
 version = "1.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3c5e1a9a646d36c3599cd173a41282daf47c44583ad367b8e6837255952e5c67"
-
-[[package]]
-name = "socket2"
-version = "0.4.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9f7916fc008ca5542385b89a3d3ce689953c143e9304a9bf8beec1de48994c0d"
-dependencies = [
- "libc",
- "winapi",
-]
 
 [[package]]
 name = "socket2"
@@ -1518,23 +1406,9 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
- "parking_lot",
  "pin-project-lite",
- "signal-hook-registry",
- "socket2 0.5.8",
- "tokio-macros",
+ "socket2",
  "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "tokio-macros"
-version = "2.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "693d596312e88961bc67d7f1f97af8a70227d9f90c31bba5806eec004978d752"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.89",
 ]
 
 [[package]]
@@ -1749,12 +1623,11 @@ dependencies = [
 
 [[package]]
 name = "wasmedge-sdk"
-version = "0.14.0"
+version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "852257498e8524cb0e2e8e9c7f1540afc2f24f2c3dd77806cf583feba8c19e99"
+checksum = "2f477f3b515760c6f7fa734dae5b97c030ee443969f1c30ed12d3a09bea783a2"
 dependencies = [
  "anyhow",
- "async-wasi",
  "cfg-if",
  "num-derive",
  "num-traits",
@@ -1766,19 +1639,16 @@ dependencies = [
 
 [[package]]
 name = "wasmedge-sys"
-version = "0.19.2"
+version = "0.17.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8ebcb49955b8b2e08fe8c3416fe4df61ecf30654db4b8f6f2418a0450cb5ada3"
+checksum = "32d8e2276d63bb6f0c36871218643d193d2da6da3db36c1c1227547da465ed58"
 dependencies = [
- "async-wasi",
  "bindgen",
  "cfg-if",
  "cmake",
- "fiber-for-wasmedge",
  "flate2",
  "lazy_static",
  "libc",
- "log",
  "parking_lot",
  "paste",
  "phf",
@@ -1796,9 +1666,9 @@ dependencies = [
 
 [[package]]
 name = "wasmedge-types"
-version = "0.6.0"
+version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "17315f552d26bcfe01fc185b874177592d30aab86a10ed898cc8a3f29815c9c4"
+checksum = "2d4e7c8aebe2c513bb389beebc148253eb6f5904a6f9327179bbf2014c0efd52"
 dependencies = [
  "thiserror",
  "wat",
@@ -1813,26 +1683,6 @@ dependencies = [
  "bitflags 2.6.0",
  "indexmap",
  "semver",
-]
-
-[[package]]
-name = "wasmtime-asm-macros"
-version = "14.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54984bc0b5689da87a43d7c181d23092b4d5cfcbb7ae3eb6b917dd55865d95e6"
-dependencies = [
- "cfg-if",
-]
-
-[[package]]
-name = "wasmtime-versioned-export-macros"
-version = "14.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09b5575a75e711ca6c36bb9ad647c93541cdc8e34218031acba5da3f35919dd3"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.89",
 ]
 
 [[package]]
@@ -1872,28 +1722,6 @@ name = "webpki-roots"
 version = "0.25.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5f20c57d8d7db6d3b86154206ae5d8fba62dd39573114de97c2cb0578251f8e1"
-
-[[package]]
-name = "winapi"
-version = "0.3.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5c839a674fcd7a98952e593242ea400abe93992746761e38641405d28b00f419"
-dependencies = [
- "winapi-i686-pc-windows-gnu",
- "winapi-x86_64-pc-windows-gnu",
-]
-
-[[package]]
-name = "winapi-i686-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3b87c63620426dd9b991e5ce0329eff545bccbbb34f3be09ff6fb6ab51b7b6"
-
-[[package]]
-name = "winapi-x86_64-pc-windows-gnu"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "windows-sys"
