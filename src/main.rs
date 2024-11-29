@@ -4,7 +4,6 @@ mod lib;
 use wasmedge_sdk::{Vm, NeverType};
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
-use std::thread::spawn;
 use std::vec;
 use clap::Parser;
 // use velocity::query;
@@ -12,7 +11,11 @@ use clap::Parser;
 static IP: &str = "0.0.0.0:6379";
 
 fn main() {
+    env_logger::init();
+
     let options = lib::Args::parse();
+    log::debug!("image_dir: {}", options.image_dir);
+    log::debug!("restore_flag: {}", options.restore_flag);
 
     // let mut db = DatabaseOps;
     let listener = TcpListener::bind(IP);

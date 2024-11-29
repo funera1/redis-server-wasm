@@ -1,12 +1,15 @@
 use wasmedge_sdk::{config::{ConfigBuilder, StatisticsConfigOptions}, params, NeverType, Vm, VmBuilder, WasmVal, WasmValue};
-use clap::Parser;
+use clap::{Parser, ArgAction};
+// use env_logger;
+// use log::{debug, error};
 
 #[derive(Parser)]
 pub struct Args {
-    #[arg(default_value_t = String::from("./"))]
-    image_dir: String,
-    #[arg(default_value_t = false)]
-    restore_flag: bool,
+    #[arg(short, long, default_value_t = String::from("./"))]
+    pub image_dir: String,
+    // #[arg(default_value_t = false)]
+    #[arg(short, long, action(ArgAction::SetTrue))]
+    pub restore_flag: bool,
 }
 
 
