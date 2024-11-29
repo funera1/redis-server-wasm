@@ -1,22 +1,22 @@
-use wasmedge_sdk::{params, Vm, WasmVal, WasmValue, VmBuilder, config::ConfigBuilder};
+use wasmedge_sdk::{params, Vm, WasmVal, WasmValue, VmBuilder, config::ConfigBuilder, NeverType};
 
 
-fn allocate(vm: &Vm, size: i32, type_tag: i32) -> Vec<WasmValue> {
+fn allocate(vm: &Vm<NeverType>, size: i32, type_tag: i32) -> Vec<WasmValue> {
     // let params = params!(size, type_tag);
     let ret = vm.run_func(Some("redis-core"), "allocate", params!(size, type_tag)).expect("failed to allocate");
     return ret;
 }
 
-fn release_objects(vm: &Vm) {
+fn release_objects(vm: &Vm<NeverType>) {
     let _ = vm.run_func(Some("redis-core"), "release_objects", params!()).expect("failed to release_objects");
 }
 
-fn get_result_ptr(vm: &Vm) -> Vec<WasmValue> {
+fn get_result_ptr(vm: &Vm<NeverType>) -> Vec<WasmValue> {
     let ret = vm.run_func(Some("redis-core"), "get_result_ptr", params!()).expect("failed to get_result_ptr");
     return ret;
 }
 
-fn get_result_size(vm: &Vm) -> Vec<WasmValue> {
+fn get_result_size(vm: &Vm<NeverType>) -> Vec<WasmValue> {
     let ret = vm.run_func(Some("redis-core"), "get_result_size", params!()).expect("failed to get_result_size");
     return ret;
 }
@@ -29,11 +29,11 @@ fn get_result_size(vm: &Vm) -> Vec<WasmValue> {
 //     let _ = vm.run_func(Some("redis-core"), "set_result_size", params!(size)).expect("failed to set_result_size");
 // }
 
-fn invoke(vm: &Vm, request: i32, request_size: i32) {
+fn invoke(vm: &Vm<NeverType>, request: i32, request_size: i32) {
     let _ = vm.run_func(Some("redis-core"), "invoke", params!(request, request_size)).unwrap();
 }
 
-pub fn query_and_response(vm: &Vm, request: &str) -> String {
+pub fn query_and_response(vm: &Vm<NeverType>, request: &str) -> String {
     // 1. memoryを取得
     let mut memory = vm.named_module("redis-core")
                             .expect("Not found active_module")
@@ -62,7 +62,7 @@ pub fn query_and_response(vm: &Vm, request: &str) -> String {
     return response;
 }
 
-pub fn init_redis_core() -> Vm {
+pub fn init_redis_core() -> Vm<NeverType> {
     let wasm_lib_file = "wasm/redis.wasm";
 
     // create a config with the `wasi` option enabled

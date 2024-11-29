@@ -1,7 +1,7 @@
 mod lib;
 
 // use crate::velocity::database::DatabaseOps;
-use wasmedge_sdk::Vm;
+use wasmedge_sdk::{Vm, NeverType};
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::thread::spawn;
@@ -43,7 +43,7 @@ fn main() {
     println!("Server shutting down");
 }
 
-fn handle_commands(mut stream: &TcpStream, vm: &Vm) {
+fn handle_commands(mut stream: &TcpStream, vm: &Vm<NeverType>) {
     let mut buffer = vec![0; 1024 * 100]; // 100kb buffer
 
     loop {
