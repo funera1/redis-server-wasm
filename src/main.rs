@@ -51,11 +51,9 @@ fn handle_commands(mut stream: &TcpStream, vm: &Vm<NeverType>) {
             Ok(size) if size > 0 => {
                 let data = &buffer[..size];
                 let request = String::from_utf8_lossy(data);
-                println!("{}", request);
+                // println!("{}", request);
                 let response = lib::query_and_response(vm, &request);
-                println!("{}", response);
-                // let query = query::Query::new(&response);
-                // let response = query.create_response();
+                // println!("{}", response);
 
                 stream
                     .write_all(&response.as_bytes())
