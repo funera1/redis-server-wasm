@@ -1,4 +1,13 @@
-use wasmedge_sdk::{params, Vm, WasmVal, WasmValue, VmBuilder, config::ConfigBuilder, NeverType};
+use wasmedge_sdk::{config::{ConfigBuilder, StatisticsConfigOptions}, params, NeverType, Vm, VmBuilder, WasmVal, WasmValue};
+use clap::Parser;
+
+#[derive(Parser)]
+pub struct Args {
+    #[arg(default_value_t = String::from("./"))]
+    image_dir: String,
+    #[arg(default_value_t = false)]
+    restore_flag: bool,
+}
 
 
 fn allocate(vm: &Vm<NeverType>, size: i32, type_tag: i32) -> Vec<WasmValue> {
@@ -62,11 +71,16 @@ pub fn query_and_response(vm: &Vm<NeverType>, request: &str) -> String {
     return response;
 }
 
-pub fn init_redis_core() -> Vm<NeverType> {
+pub fn init_redis_core(option: &Args) -> Vm<NeverType> {
     let wasm_lib_file = "wasm/redis.wasm";
+
+    let options = StatisticsConfigOptions::new()
+                                            .image_dir(option.image_dir.clone())
+                                            .restore_flag(option.restore_flag);
 
     // create a config with the `wasi` option enabled
     let config = ConfigBuilder::default()
+                            .with_statistics_config(options)
                             .build().expect("Failed to config build");
 
     // create a VM with the config

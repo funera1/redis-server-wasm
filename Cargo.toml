@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-wasmedge-sdk = "0.9.0"
+clap = { version = "4.5.21", features = ["derive"] }
+wasmedge-sdk = {git = "https://github.com/oss-fun/wasmedge-rust-sdk.git", branch = "v0.9.0"}

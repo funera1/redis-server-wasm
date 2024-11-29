@@ -6,12 +6,14 @@ use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::thread::spawn;
 use std::vec;
+use clap::Parser;
 // use velocity::query;
 
 static IP: &str = "0.0.0.0:6379";
 
-
 fn main() {
+    let options = lib::Args::parse();
+
     // let mut db = DatabaseOps;
     let listener = TcpListener::bind(IP);
     let listener = match listener {
@@ -26,7 +28,7 @@ fn main() {
 
     println!("Server listening on {}", IP);
 
-    let vm = lib::init_redis_core();
+    let vm = lib::init_redis_core(&options);
 
     for stream in listener.incoming() {
         match stream {
