@@ -1,6 +1,4 @@
-use std::collections::HashMap;
-
-use wasmedge_sdk::{params, Instance, Module, Store, Vm, WasmVal, WasmValue, VmBuilder, config::ConfigBuilder};
+use wasmedge_sdk::{params, Vm, WasmVal, WasmValue, VmBuilder, config::ConfigBuilder};
 
 
 fn allocate(vm: &Vm, size: i32, type_tag: i32) -> Vec<WasmValue> {
@@ -23,13 +21,13 @@ fn get_result_size(vm: &Vm) -> Vec<WasmValue> {
     return ret;
 }
 
-fn set_result_ptr(vm: &Vm, ptr: i32) {
-    let _ = vm.run_func(Some("redis-core"), "set_result_ptr", params!(ptr)).expect("failed to set_result_ptr");
-}
+// fn set_result_ptr(vm: &Vm, ptr: i32) {
+//     let _ = vm.run_func(Some("redis-core"), "set_result_ptr", params!(ptr)).expect("failed to set_result_ptr");
+// }
 
-fn set_result_size(vm: &Vm, size: i32) {
-    let _ = vm.run_func(Some("redis-core"), "set_result_size", params!(size)).expect("failed to set_result_size");
-}
+// fn set_result_size(vm: &Vm, size: i32) {
+//     let _ = vm.run_func(Some("redis-core"), "set_result_size", params!(size)).expect("failed to set_result_size");
+// }
 
 fn invoke(vm: &Vm, request: i32, request_size: i32) {
     let _ = vm.run_func(Some("redis-core"), "invoke", params!(request, request_size)).unwrap();
@@ -46,7 +44,7 @@ fn server_main(vm: &Vm) {
     let req_ptr = allocate(vm, request.len() as i32, 0)[0];
 
     // 3. memoryにrequestを書き込む
-    let res = memory.write(request, req_ptr.to_i32() as u32);
+    let _ = memory.write(request, req_ptr.to_i32() as u32);
 
     // 4. invokeにmemoryを渡す
     invoke(vm, req_ptr.to_i32(), request.len() as i32);
