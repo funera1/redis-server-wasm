@@ -1,4 +1,4 @@
-use wasmedge_sdk::{config::{ConfigBuilder, StatisticsConfigOptions}, params, NeverType, Vm, VmBuilder, WasmVal, WasmValue};
+use wasmedge_sdk::{config::{ConfigBuilder, StatisticsConfigOptions}, params, NeverType, Vm, VmBuilder, WasmVal, WasmValue, LogManager};
 use clap::{Parser, ArgAction};
 // use env_logger;
 // use log::{debug, error};
@@ -77,6 +77,7 @@ pub fn query_and_response(vm: &Vm<NeverType>, request: &str) -> String {
 pub fn init_redis_core(option: &Args) -> Vm<NeverType> {
     let wasm_lib_file = "wasm/redis.wasm";
 
+    // LogManager::log_debug_info();
     let options = StatisticsConfigOptions::new()
                                             .image_dir(option.image_dir.clone())
                                             .restore_flag(option.restore_flag);

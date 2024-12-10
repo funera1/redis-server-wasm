@@ -1,12 +1,12 @@
 mod lib;
 
-// use crate::velocity::database::DatabaseOps;
+// use chan::chan_select;
+// use chan_signal::Signal;
 use wasmedge_sdk::{Vm, NeverType};
 use std::io::{Read, Write};
 use std::net::{TcpListener, TcpStream};
 use std::vec;
 use clap::Parser;
-// use velocity::query;
 
 static IP: &str = "0.0.0.0:6379";
 
@@ -17,7 +17,18 @@ fn main() {
     log::debug!("image_dir: {}", options.image_dir);
     log::debug!("restore_flag: {}", options.restore_flag);
 
-    // let mut db = DatabaseOps;
+    // signal handler
+    // let s = chan_signal::notify(&[Signal::TERM, Signal::USR1]);
+    // chan_select! {
+    //     s.recv() -> signal => {
+    //         println!("signal={:?}", signal);
+    //     }
+    // }
+
+    // init WasmVM
+    let vm = lib::init_redis_core(&options);
+
+    // setup connection
     let listener = TcpListener::bind(IP);
     let listener = match listener {
         Ok(listener) => listener,
@@ -27,11 +38,8 @@ fn main() {
         }
     };
 
-    // db.delete_expired_keys();
 
     println!("Server listening on {}", IP);
-
-    let vm = lib::init_redis_core(&options);
 
     for stream in listener.incoming() {
         match stream {
@@ -54,11 +62,12 @@ fn handle_commands(mut stream: &TcpStream, vm: &Vm<NeverType>) {
     loop {
         match stream.read(&mut buffer) {
             Ok(size) if size > 0 => {
+                println!("size: {}", size);
                 let data = &buffer[..size];
                 let request = String::from_utf8_lossy(data);
-                // println!("{}", request);
+                println!("request: {}", request);
                 let response = lib::query_and_response(vm, &request);
-                // println!("{}", response);
+                println!("response: {}", response);
 
                 stream
                     .write_all(&response.as_bytes())
